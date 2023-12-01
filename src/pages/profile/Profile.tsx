@@ -9,7 +9,7 @@ import * as Yup from "yup";
 
 import PrimaryButton from "components/ui/button/PrimaryButtton";
 import SecondaryButton from "components/ui/button/SecondaryButton";
-import { appAction } from "redux/app/app.slice";
+// import { appAction } from "redux/app/app.slice";
 import { userAction } from "redux/user/user.slice";
 import FullPageSpiner from "components/ui/spiner/FullPageSpiner";
 import { GenderConst } from "common/constant";
@@ -51,8 +51,8 @@ function Profile() {
       if (file) formData.append("file", file);
 
       // call api upload
-      const uploadResult = await dispatch(appAction.uploadFile(formData));
-      return uploadResult.payload.data.url;
+      // const uploadResult = await dispatch(appAction.uploadFile(formData));
+      // return uploadResult.payload.data.url;
     } catch (err) {
       throw new Error("Upload fail");
     }

@@ -2,7 +2,7 @@ import { MdOutlineSort, MdMenu } from "react-icons/md";
 import { Button } from "antd";
 import AvatarGroup from "components/ui/avatar/AvatarGroup";
 import { useEffect, useState } from "react";
-import Notification from "./Notification";
+
 
 const Header = ({ collapsed, setCollapsed }: any) => {
     function getCurrentDimension() {
@@ -42,7 +42,7 @@ const Header = ({ collapsed, setCollapsed }: any) => {
                 onClick={() => setCollapsed(!collapsed)}
             />
             <div></div>
-            <Notification/>
+         
             <AvatarGroup></AvatarGroup>
         </div>
     );
