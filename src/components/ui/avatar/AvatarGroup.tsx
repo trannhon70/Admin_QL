@@ -17,7 +17,7 @@ const AvatarGroup = (props: any) => {
 
    const [isModalOpen, setIsModalOpen] = useState(false);
 
-   const onClick: MenuProps["onClick"] = async ({ key }) => {
+   const onClick: MenuProps["onClick"] = async ({ key } : any) => {
       const handleClick: any = {
          "1": () => navigate("/thong-tin-tai-khoan"),
          "2": () => navigate("/nap-tien"),
@@ -62,7 +62,7 @@ const AvatarGroup = (props: any) => {
          {props.hiddenDropdown === true ? (
             <></>
          ) : (
-            <div>
+            <div style={{textAlign:"right", width:"100%"}}>
                <ChangePassword isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
 
                <Dropdown menu={{ items, onClick }} placement="bottomRight">

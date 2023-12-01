@@ -1,18 +1,16 @@
+import { ROLES } from 'common/constant'
 import { ReactElement } from 'react'
 import { AiOutlineUser } from 'react-icons/ai'
 import { BiLogoFacebook, BiPurchaseTag } from 'react-icons/bi'
-import { TbDashboard } from 'react-icons/tb'
-import { FiYoutube } from 'react-icons/fi'
-import { RxDotFilled } from 'react-icons/rx'
-import { GrDomain } from 'react-icons/gr'
-import { IoLogoTiktok, IoNewspaperOutline } from 'react-icons/io5'
-import { ROLES } from 'common/constant'
 import { BsGoogle, BsInstagram, BsTwitter } from 'react-icons/bs'
-import { MdOutlineCurrencyExchange } from 'react-icons/md'
-import { SiGooglemaps, SiTraefikproxy } from 'react-icons/si'
+import { FiYoutube } from 'react-icons/fi'
 import { ImNotification } from 'react-icons/im'
-import { FcGoogle } from 'react-icons/fc'
+import { IoNewspaperOutline } from 'react-icons/io5'
+import { MdOutlineCurrencyExchange } from 'react-icons/md'
 import { PiAirTrafficControlBold } from 'react-icons/pi'
+import { RxDotFilled } from 'react-icons/rx'
+import { SiGooglemaps, SiTraefikproxy } from 'react-icons/si'
+import { TbDashboard } from 'react-icons/tb'
 
 export type MenuItemType = {
 	id: string
@@ -51,27 +49,27 @@ const MenuData: Array<MenuItemType> = [
 		icon: <AiOutlineUser size={24} />,
 		label: 'Quản lý thành viên',
 		link: '/quan-ly-thanh-vien',
-		permission: ROLES.ADMIN,
+		// permission: ROLES.ADMIN,
 		children: [
 			{
 				id: 'users-management',
 				label: 'Cộng đồng SEO',
 				icon: <RxDotFilled />,
-				permission: ROLES.ADMIN,
+				// permission: ROLES.ADMIN,
 				link: '/quan-ly-thanh-vien/cong-dong-seo',
 			},
 			{
 				id: 'admins-seo',
 				label: 'Admin CD-SEO',
 				icon: <RxDotFilled />,
-				permission: ROLES.ADMIN,
+				// permission: ROLES.ADMIN,
 				link: '/quan-ly-thanh-vien/admin-cong-dong-seo',
 			},
 			{
 				id: 'admins-management',
 				label: 'Quản trị viên',
 				icon: <RxDotFilled />,
-				permission: ROLES.ADMIN,
+				// permission: ROLES.ADMIN,
 				link: '/quan-ly-thanh-vien/quan-tri-vien',
 			},
 		],
@@ -141,23 +139,7 @@ const MenuData: Array<MenuItemType> = [
 		],
 	},
 
-	// quan ly ten mien
-	// {
-	//   id: "domain",
-	//   icon: <GrDomain size={24} />,
-	//   label: "Quản lý tên miền",
-	//   link: "/quan-ly-ten-mien",
-	//   permission: ROLES.ADMIN,
-	//   children: [
-	//     {
-	//       id: "domain-manager",
-	//       label: "Xác thực tên miền",
-	//       icon: <RxDotFilled />,
-	//       link: "/quan-ly-ten-mien",
-	//       permission: ROLES.ADMIN,
-	//     },
-	//   ],
-	// },
+	
 
 	// top-up
 	{
@@ -205,20 +187,7 @@ const MenuData: Array<MenuItemType> = [
 				link: '/thanh-toan-chuyen-khoan',
 				permission: ROLES.ADMIN,
 			},
-			// {
-			//   id: "load-money-card",
-			//   label: "Tiền nạp thẻ",
-			//   icon: <RxDotFilled />,
-			//   link: "/quan-ly-nap-the",
-			//   permission: ROLES.ADMIN,
-			// },
-			// {
-			//   id: "withdraw-request",
-			//   label: "Yêu cầu rút tiền",
-			//   icon: <RxDotFilled />,
-			//   link: "/yeu-cau-rut-tien",
-			//   permission: ROLES.ADMIN,
-			// },
+			
 		],
 	},
 	// social
@@ -266,37 +235,7 @@ const MenuData: Array<MenuItemType> = [
 		],
 	},
 
-	//  {
-	//     id: "ql-tiktok",
-	//     icon: <IoLogoTiktok size={24} />,
-	//     label: "Quản lý tiktok",
-	//     link: "/quan-ly-tiktok",
-	//     permission: ROLES.ADMIN,
-	//     children: [
-	//        {
-	//           id: "ql-tiktok-1",
-	//           label: "Quản lý follow",
-	//           icon: <RxDotFilled />,
-	//           link: "/quan-ly-tiktok",
-	//           permission: ROLES.ADMIN,
-	//        },
-	//     ],
-	//  },
-
-	// {
-	//   id: "tiktok",
-	//   icon: <IoLogoTiktok size={24} />,
-	//   label: "Tiktok buff",
-	//   link: "/tiktok-buff",
-	//   children: [
-	//     {
-	//       id: "tiktok-management",
-	//       label: "Buff follow tiktok",
-	//       icon: <RxDotFilled />,
-	//       link: "/tiktok-buff",
-	//     },
-	//   ],
-	// },
+	
 
 	{
 		id: 'ql-twitter',
@@ -562,3 +501,4 @@ const MenuData: Array<MenuItemType> = [
 	},
 ]
 export { MenuData }
+

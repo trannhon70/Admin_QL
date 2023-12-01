@@ -47,10 +47,19 @@ export const userSlice = createSlice({
     extraReducers: (builder) => {
         // sign in
         builder.addCase(signIn.fulfilled, (state, action: any) => {
-            state.isLogedIn = true;
-            LOCAL_STORAGE.setAccessToken(action.payload.data.access_token);
-            LOCAL_STORAGE.setRefreshToken(action.payload.data.refresh_token);
-            toast.success(action.payload.message || "Login successfully");
+          
+            
+            if(action.payload.status === 0) {
+                 toast.error(action.payload.data || "Login fail")
+            }
+            else {
+                toast.success(action.payload.message || "Login successfully");
+                state.isLogedIn = true;
+                LOCAL_STORAGE.setAccessToken(action.payload.data.jwtToken);
+                LOCAL_STORAGE.setRefreshToken(action.payload.data.jwtToken);
+            }
+            
+            
         });
         builder.addCase(signIn.rejected, (state, action) => {
             state.isLogedIn = false;

@@ -16,9 +16,12 @@ const ApiInstance = () => {
 
     instance.interceptors.response.use(
         (response) => {
+            console.log(response,'response')
+
             return response.data ? response.data : response;
         },
         async (error) => {
+
             const originalRequest: any = error.config;
             const REFRESH_URL = "auth-admin/refresh-token";
             const LOGIN_URL = "auth-admin/login";

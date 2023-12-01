@@ -29,7 +29,7 @@ const Header = ({ collapsed, setCollapsed }: any) => {
     }, [screenSize]);
 
     return (
-        <div className="flex border-b border-gray-300 bg-white py-6 px-4">
+        <div className="flex border-b border-gray-300 bg-white py-6 px-4  ">
             <Button
                 type="text"
                 icon={
@@ -41,7 +41,7 @@ const Header = ({ collapsed, setCollapsed }: any) => {
                 }
                 onClick={() => setCollapsed(!collapsed)}
             />
-            <div></div>
+            <div ></div>
          
             <AvatarGroup></AvatarGroup>
         </div>
