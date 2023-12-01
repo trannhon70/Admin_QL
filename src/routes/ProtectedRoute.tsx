@@ -17,9 +17,9 @@ const ProtectedRoute = ({
     const isLogedIn = useSelector((state: any) => state.user.isLogedIn);
     const userInfo = useSelector((state: any) => state.user.currentUser);
 
-    useEffect(() => {
-        dispatch(userAction.getProfile());
-    }, []);
+    // useEffect(() => {
+    //     dispatch(userAction.getProfile());
+    // }, []);
 
     if (!isLogedIn) return <Navigate to={loginPath} replace />;
     if (!permission || userInfo?.role === permission) return <>{children}</>;

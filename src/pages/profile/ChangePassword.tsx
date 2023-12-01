@@ -56,7 +56,7 @@ function ChangePassword(props: {
         onSubmit: (values) => {
             setIsLoading(true);
             const result = dispatch(
-                userAction.changePassword({ id: userInfo._id, ...values })
+                // userAction.changePassword({ id: userInfo._id, ...values })
             );
             result.then((data: any) => {
                 if (data.error) {

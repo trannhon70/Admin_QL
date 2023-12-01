@@ -92,10 +92,10 @@ function Profile() {
           avatarUpload = await handleUploadFile(avatarFile);
         }
         const result = dispatch(
-          userAction.updateProfile({
-            ...values,
-            avatar: avatarUpload,
-          })
+         //  userAction.updateProfile({
+         //    ...values,
+         //    avatar: avatarUpload,
+         //  })
         );
         result.then((data: any) => {
           if (data.error) {
@@ -104,7 +104,7 @@ function Profile() {
           }
           //
           toast.success(data.message || "Update Successfully");
-          dispatch(userAction.getProfile());
+         //  dispatch(userAction.getProfile());
         });
       } catch (error) {
         toast.error("Update Fail");

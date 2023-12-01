@@ -31,17 +31,17 @@ function ForgotPassword() {
         }),
         onSubmit: (values: { userName: string; email: string }) => {
             //
-            setIsLoading(true);
-            const result = dispatch(userAction.resetPassword(values));
-            result.then((data: any) => {
-                if (data.error) {
-                    toast.error(data?.error?.message || "Get fail");
-                    setIsLoading(false);
-                    return;
-                }
-                toast.success("Mật khẩu mới đã được gửi tới email của bạn");
-                setIsLoading(false);
-            });
+            // setIsLoading(true);
+            // const result = dispatch(userAction.resetPassword(values));
+            // result.then((data: any) => {
+            //     if (data.error) {
+            //         toast.error(data?.error?.message || "Get fail");
+            //         setIsLoading(false);
+            //         return;
+            //     }
+            //     toast.success("Mật khẩu mới đã được gửi tới email của bạn");
+            //     setIsLoading(false);
+            // });
         },
     });
 

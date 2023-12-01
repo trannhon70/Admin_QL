@@ -13,14 +13,14 @@ function VerifyEmail() {
 
     useEffect(() => {
         try {
-            const result = dispatch(userAction.verifyEmail(emailToken || ""));
-            result.then((data: any) => {
-                if (data?.error) {
-                    navigate("/404");
-                    return;
-                }
-                toast.success("Xác thực thành công!");
-            });
+            // const result = dispatch(userAction.verifyEmail(emailToken || ""));
+            // result.then((data: any) => {
+            //     if (data?.error) {
+            //         navigate("/404");
+            //         return;
+            //     }
+            //     toast.success("Xác thực thành công!");
+            // });
         } catch (error) {
             navigate("/404");
         }
