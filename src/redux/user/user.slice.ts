@@ -2,8 +2,13 @@ import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { userAPI } from "api/user.api";
 import { LOCAL_STORAGE } from "helper/storage.helper";
+import { IUser } from "interface/user";
 
 const signOut = createAction("auth/signOut");
+const logout = createAsyncThunk("auth/logout",(payload:{userId: string})=> {
+    
+    return userAPI.logout(payload)
+}) 
 const signUp = createAsyncThunk(
     "auth/signIn",
     (payload: {
@@ -22,32 +27,58 @@ const signIn = createAsyncThunk(
     }
 );
 
-
+const getbyIdUser = createAsyncThunk(
+    "auth/getbyIdUser",
+    () => {
+        return userAPI.getbyIdUser();
+    }
+);
 const currentUser = LOCAL_STORAGE.getCurrentUser();
 
 export const userAction = {
     signIn,
     signUp,
     signOut,
-   
+    logout,
+    getbyIdUser
+};
+
+
+
+interface UserState {
+    isLogedIn: boolean;
+    isLoading: boolean;
+    currentUser: IUser | null;
+    updateUser: IUser | null;
+    listUsers: IUser[];
+    listAdmins: IUser[];
+    errorMessage: string;
+    listUsersSelect: IUser[];
+    user: IUser; // <-- Update the type to IUser
+}
+
+const initialState: UserState = {
+    isLogedIn: !currentUser || currentUser == null ? false : true,
+    isLoading: false,
+    currentUser: currentUser || null,
+    updateUser: null,
+    listUsers: [],
+    listAdmins: [],
+    errorMessage: "",
+    listUsersSelect: [],
+    user: {id:"", username: "", role: "", name: "", avatar: "" }, // Provide initial values based on IUser
 };
 export const userSlice = createSlice({
     name: "user",
-    initialState: {
-        isLogedIn: !currentUser || currentUser == null ? false : true,
-        isLoading: false,
-        currentUser: currentUser || null,
-        updateUser: null,
-        listUsers: [],
-        listAdmins: [],
-        errorMessage: "",
-        listUsersSelect:[]
+    initialState,
+    reducers: {
+        setUser(state, action)  {
+            state.user = action.payload.data
+        }
     },
-    reducers: {},
     extraReducers: (builder) => {
         // sign in
         builder.addCase(signIn.fulfilled, (state, action: any) => {
-          
             
             if(action.payload.status === 0) {
                  toast.error(action.payload.data || "Login fail")
@@ -55,8 +86,9 @@ export const userSlice = createSlice({
             else {
                 toast.success(action.payload.message || "Login successfully");
                 state.isLogedIn = true;
-                LOCAL_STORAGE.setAccessToken(action.payload.data.jwtToken);
-                LOCAL_STORAGE.setRefreshToken(action.payload.data.jwtToken);
+                state.user = action.payload.data;
+                LOCAL_STORAGE.setAccessToken(action.payload.data?.jwtToken);
+                LOCAL_STORAGE.setRefreshToken(action.payload.data?.jwtToken);
             }
             
             
@@ -66,6 +98,7 @@ export const userSlice = createSlice({
             state.currentUser = null;
             toast.error(action.error.message || "Login fail");
         });
+        
         // sign out
         builder.addCase(signOut, (state) => {
             state.isLogedIn = false;
@@ -74,7 +107,20 @@ export const userSlice = createSlice({
             LOCAL_STORAGE.removeAccessToken();
             LOCAL_STORAGE.removeRefreshToken();
         });
-
-       
+                //getbyIdUser
+                builder.addCase(getbyIdUser.fulfilled, (state, action: any) => {
+                    console.log(action, 'action');
+                    state.user = action.payload.result;
+                });
+        
+                builder.addCase(getbyIdUser.rejected, (state, action) => {
+                    console.error(action.error, 'Error fetching user by ID');
+                    // Handle the rejection/failure state if needed
+                });
+        
     },
 });
+
+export const { setUser } = userSlice.actions; // Exporting setUser action
+
+export default userSlice.reducer;

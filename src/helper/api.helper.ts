@@ -16,7 +16,6 @@ const ApiInstance = () => {
 
     instance.interceptors.response.use(
         (response) => {
-            console.log(response,'response')
 
             return response.data ? response.data : response;
         },
