@@ -5,3 +5,10 @@ export interface IUser {
     name: string,
     avatar: string,
 }
+
+export interface IListBrand {
+    id: string,
+    name: string,
+    createdAt: string,
+    updatedAt: string,
+}

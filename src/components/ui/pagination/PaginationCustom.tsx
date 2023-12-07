@@ -22,7 +22,7 @@ export default function PaginationCustom({
                         total={list}
                         showSizeChanger={true}
                         onChange={handleChange}
-                        pageSizeOptions={[5, 10, 30, 50]}
+                        pageSizeOptions={[ 10, 30, 50]}
                         defaultPageSize={5}
                     ></Pagination>
                 </div>

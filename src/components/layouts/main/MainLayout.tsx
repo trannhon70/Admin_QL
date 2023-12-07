@@ -16,7 +16,7 @@ const MainLayout = () => {
                         collapsed={collapsed}
                         setCollapsed={(val: boolean) => setCollapsed(val)}
                     ></Header>
-                    <div className="h-full">
+                    <div className="h-full"  style={{padding:'20px'}}>
                         <Outlet></Outlet>
                     </div>
                 </Layout>

@@ -13,6 +13,8 @@ import { ROLES } from 'common/constant'
 
 import SignUp from 'pages/sign-up/SignUp'
 import VerifyEmail from 'pages/verify-email/VerifyEmail'
+import CreatedBrand from 'pages/brand/createdBrand'
+import ManageBrand from 'pages/brand/manageBrand'
 
 
 type route = {
@@ -58,7 +60,14 @@ const ProtectedRoutes: route[] = [
 		path: '/thong-tin-tai-khoan',
 		element: <Profile />,
 	},
-	
+	{
+		path: '/thuong-hieu',
+		element: <CreatedBrand />,
+	},
+	{
+		path: '/ql-thuong-hieu',
+		element: <ManageBrand />,
+	},
 	
 ]
 

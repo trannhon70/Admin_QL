@@ -109,7 +109,6 @@ export const userSlice = createSlice({
         });
                 //getbyIdUser
                 builder.addCase(getbyIdUser.fulfilled, (state, action: any) => {
-                    console.log(action, 'action');
                     state.user = action.payload.result;
                 });
         
