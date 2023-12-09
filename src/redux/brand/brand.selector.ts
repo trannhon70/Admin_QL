@@ -7,6 +7,8 @@ interface brand{
         totalPages: number,
         pageSize: number,
         pageIndex: number,
+        brand:IListBrand,
+        allBrand: IListBrand[]
     }
 }
 export const getListBrand = (state: brand) => {

@@ -15,6 +15,8 @@ import SignUp from 'pages/sign-up/SignUp'
 import VerifyEmail from 'pages/verify-email/VerifyEmail'
 import CreatedBrand from 'pages/brand/createdBrand'
 import ManageBrand from 'pages/brand/manageBrand'
+import CreatedProduct from 'pages/product/createdProduct'
+import ManageProduct from 'pages/product/manageProduct'
 
 
 type route = {
@@ -61,12 +63,28 @@ const ProtectedRoutes: route[] = [
 		element: <Profile />,
 	},
 	{
-		path: '/thuong-hieu',
+		path: '/them-thuong-hieu',
+		element: <CreatedBrand />,
+	},
+	{
+		path: '/sua-thuong-hieu/:id',
 		element: <CreatedBrand />,
 	},
 	{
 		path: '/ql-thuong-hieu',
 		element: <ManageBrand />,
+	},
+	{
+		path: '/sp-them-san-pham',
+		element: <CreatedProduct />,
+	},
+	{
+		path: '/sp-sua-san-pham/:id',
+		element: <CreatedProduct />,
+	},
+	{
+		path: '/sp-ql-san-pham',
+		element: <ManageProduct />,
 	},
 	
 ]

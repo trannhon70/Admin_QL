@@ -40,7 +40,7 @@ const MenuData: Array<MenuItemType> = [
 				id: 'created-brand',
 				label: 'Thêm thương hiệu',
 				icon: <RxDotFilled />,
-				link: '/thuong-hieu',
+				link: '/them-thuong-hieu',
 			},
 			{
 				id: 'ql-brand',
@@ -51,33 +51,27 @@ const MenuData: Array<MenuItemType> = [
 		],
 	},
 	{
-		id: 'users',
+		id: 'sp',
 		icon: <AiOutlineUser size={24} />,
-		label: 'Quản lý thành viên',
-		link: '/quan-ly-thanh-vien',
+		label: 'Sản phẩm',
+		link: '/sp',
 		// permission: ROLES.ADMIN,
 		children: [
 			{
-				id: 'users-management',
-				label: 'Cộng đồng SEO',
+				id: 'sp-created',
+				label: 'Thêm Sản Phẩm',
 				icon: <RxDotFilled />,
 				// permission: ROLES.ADMIN,
-				link: '/quan-ly-thanh-vien/cong-dong-seo',
+				link: '/sp-them-san-pham',
 			},
 			{
-				id: 'admins-seo',
-				label: 'Admin CD-SEO',
+				id: 'sp-management',
+				label: 'Quản lý Sản Phẩm',
 				icon: <RxDotFilled />,
 				// permission: ROLES.ADMIN,
-				link: '/quan-ly-thanh-vien/admin-cong-dong-seo',
+				link: '/sp-ql-san-pham',
 			},
-			{
-				id: 'admins-management',
-				label: 'Quản trị viên',
-				icon: <RxDotFilled />,
-				// permission: ROLES.ADMIN,
-				link: '/quan-ly-thanh-vien/quan-tri-vien',
-			},
+			
 		],
 	},
 	

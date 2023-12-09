@@ -17,13 +17,13 @@ export default function PaginationCustom({
             <div className="flex items-center justify-between ">
                 <div className="flex items-center pt-3 text-gray-600 hover:text-indigo-700 cursor-pointer">
                     <Pagination
-                        current={pageIndex}
+                        current={ pageIndex}
                         pageSize={pageSize}
                         total={list}
                         showSizeChanger={true}
                         onChange={handleChange}
                         pageSizeOptions={[ 10, 30, 50]}
-                        defaultPageSize={5}
+                        defaultCurrent={pageIndex}
                     ></Pagination>
                 </div>
             </div>
