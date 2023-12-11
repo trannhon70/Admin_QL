@@ -1,47 +1,110 @@
-import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Select, Upload } from 'antd';
-import { useDispatch, useSelector } from 'react-redux';
-import { brandAction } from 'redux/brand/brand.slice';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { getListBrand } from 'redux/brand/brand.selector';
-import { useForm } from 'antd/es/form/Form';
-import { InboxOutlined, UploadOutlined } from '@ant-design/icons';
-import { productAction } from 'redux/product/product.slice';
-import { toast } from 'react-toastify';
-import { productAPI } from 'api/product.api';
 import ImgCrop from 'antd-img-crop';
-import { FiUploadCloud } from 'react-icons/fi';
-import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
+import { useForm } from 'antd/es/form/Form';
+import type { UploadFile, UploadProps } from "antd/es/upload/interface";
+import { productAPI } from 'api/product.api';
 import MySunEditor from 'components/ui/Editor';
+import BreadCrumb from 'components/ui/breadcrumb';
+import { useEffect, useState } from 'react';
+import { FiUploadCloud } from 'react-icons/fi';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { getListBrand } from 'redux/brand/brand.selector';
+import { brandAction } from 'redux/brand/brand.slice';
+import { getListProduct } from 'redux/product/product.selector';
+import { productAction } from 'redux/product/product.slice';
+
 const { Option } = Select;
+
 const CreatedProduct = () => {
   let location = useLocation();
   const segments = location.pathname.split("/");
-  const idBrand = segments[segments.length - 1]
+  const idProduct = segments[segments.length - 1]
   const dispacth = useDispatch<any>()
-  const { brand, allBrand } = useSelector(getListBrand)
+  const { allBrand } = useSelector(getListBrand)
+  const { product} = useSelector(getListProduct)
   const [form] = useForm();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [content, setContent] = useState<any>()
-
+  const [content, setContent] = useState<any>('')
+  
   const navigate = useNavigate()
 
-  console.log(fileList, 'fileList');
+  const dataBreadCrumb : any = [
+  {
+      title: 'Sản phẩm',
+  },
+  {
+      title: <a href="">{(()=>{
+        if(idProduct !== 'sp-them-san-pham'){
+          return 'Cập Nhật Sản Phẩm'
+        }
+        return 'Thêm Sản Phẩm'
+      })()}</a>,
+  },
+  
+]
 
-  if (idBrand !== 'them-thuong-hieu') {
+  const selectedBrand = allBrand.find(item => item?.id === product?.brand?.id);
+
+  if (idProduct !== 'sp-them-san-pham') {
     form.setFieldsValue({
-      name: brand.name,
-      basic: brand.id
+      name: product.name,
+      brand: selectedBrand?.id,
+      price: product.price,
+      quantity: product.quantity,
+      image: product.image,
     });
   } else {
     form.setFieldsValue({
       name: "",
+      brand: '',
+      price: '',
+      quantity: '',
+      image: '',
     });
   }
 
   useEffect(() => {
+    setContent(product.content);
+  }, [product.content])
+
+  
+  useEffect(() => {
+    if(idProduct !== 'sp-them-san-pham'){
+      dispacth(productAction.getByIdProduct(idProduct))
+    } else {
+      setContent('');
+      setFileList([])
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idProduct])
+
+  useEffect(() => {
     dispacth(brandAction.getAllBrand())
+   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+ 
+
+
+  useEffect(() => {
+    if(idProduct  !== 'sp-them-san-pham'){
+    const mockDataFromAPI = product.image?.map((item : any, index : number)=>{
+      return {
+        uid : index,
+        name : item,
+        url: `${process.env.REACT_APP_BASE_API_URL}/${item}`
+      }
+    })
+
+    setFileList(mockDataFromAPI); 
+    }
+    
+  }, [product, idProduct, product.content]);
+
+  
+  
 
   const onFinish = async (values: any) => {
     const formData = new FormData()
@@ -50,11 +113,19 @@ const CreatedProduct = () => {
     formData.append("price", values.price);
     formData.append("content", content);
     formData.append("quantity", values.quantity);
+    // formData.append("fileOld", );
     fileList?.forEach((fileModal: any) => {
       formData.append("file", fileModal.originFileObj);
     });
-    const result: any = await productAPI.createdProduct(formData)
-    result.status === 1 ? toast.success(`${result.message}`) : toast.error(`${result.message}`)
+    if(idProduct  !== 'sp-them-san-pham'){
+      const result: any = await productAPI.updateProduct(idProduct,formData)
+      result.status === 1 ? toast.success(`${result.message}`) : toast.error(`${result.message}`)
+      
+    }else {
+      const result: any = await productAPI.createdProduct(formData)
+      result.status === 1 ? toast.success(`${result.message}`) : toast.error(`${result.message}`)
+    }
+    
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -65,6 +136,7 @@ const CreatedProduct = () => {
     setFileList(newFileList);
   };
 
+
   type FieldType = {
     name?: string;
     brand?: any;
@@ -73,7 +145,9 @@ const CreatedProduct = () => {
     quantity?: number;
     image?: any;
   };
-  return <Form
+  return <>
+  <BreadCrumb data = {dataBreadCrumb} />
+    <Form
     name="basic"
     labelCol={{ span: 3 }}
     wrapperCol={{ span: 21 }}
@@ -115,7 +189,7 @@ const CreatedProduct = () => {
       label="Mô tả"
       name="content"
     >
-      <MySunEditor setContent={setContent} />
+      <MySunEditor content={content}  setContent={setContent} />
     </Form.Item>
     <Form.Item<FieldType>
       label="Số lượng"
@@ -135,6 +209,7 @@ const CreatedProduct = () => {
           listType="picture-card"
           fileList={fileList}
           onChange={onChange}
+          // onPreview={handlePreview}
         >
           <FiUploadCloud className="mr-1" size={40} />
         </Upload>
@@ -142,10 +217,11 @@ const CreatedProduct = () => {
     </Form.Item>
     <Form.Item wrapperCol={{ offset: 3, span: 24 }}>
       <Button type="primary" htmlType="submit">
-        Thêm
+        {idProduct ? 'Cập nhật' : 'Thêm'} 
       </Button>
     </Form.Item>
   </Form>
+  </>
 }
 
 export default CreatedProduct
