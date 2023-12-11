@@ -28,7 +28,7 @@ const CreatedBrand = () => {
 
     const onFinish = (values: any) => {
    
-        if(idBrand !== 'thuong-hieu'){
+        if(idBrand !== 'them-thuong-hieu'){
             const payload ={
                 id:idBrand,
                 body:values
@@ -75,7 +75,7 @@ const CreatedBrand = () => {
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-               {idBrand !== 'thuong-hieu' ? 'Sửa' : 'Thêm'}
+               {idBrand !== 'them-thuong-hieu' ? 'Sửa' : 'Thêm'}
             </Button>
         </Form.Item>
     </Form>
