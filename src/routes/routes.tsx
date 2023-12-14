@@ -17,6 +17,8 @@ import CreatedBrand from 'pages/brand/createdBrand'
 import ManageBrand from 'pages/brand/manageBrand'
 import CreatedProduct from 'pages/product/createdProduct'
 import ManageProduct from 'pages/product/manageProduct'
+import ManagerUser from 'pages/user/managerUser'
+import CreateUser from 'pages/user/createUser'
 
 
 type route = {
@@ -85,6 +87,14 @@ const ProtectedRoutes: route[] = [
 	{
 		path: '/sp-ql-san-pham',
 		element: <ManageProduct />,
+	},
+	{
+		path: '/ql-nguoi-dung',
+		element: <ManagerUser />,
+	},
+	{
+		path: '/them-nguoi-dung',
+		element: <CreateUser />,
 	},
 	
 ]

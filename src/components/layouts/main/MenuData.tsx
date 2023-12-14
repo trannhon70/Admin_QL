@@ -31,6 +31,26 @@ export type ChildMenuItemType = {
 
 const MenuData: Array<MenuItemType> = [
 	{
+		id: 'user',
+		icon: <TbDashboard size={26} />,
+		label: 'User',
+		link: '/ql-nguoi-dung',
+		children: [
+			{
+				id: 'manager-user',
+				label: 'QL người dùng',
+				icon: <RxDotFilled />,
+				link: '/ql-nguoi-dung',
+			},
+			{
+				id: 'create-user',
+				label: 'Thêm người dùng',
+				icon: <RxDotFilled />,
+				link: '/them-nguoi-dung',
+			},
+		],
+	},
+	{
 		id: 'brand',
 		icon: <TbDashboard size={26} />,
 		label: 'Thương hiệu',

@@ -4,7 +4,9 @@ export const userAPI = {
     login,
     signUp,
     logout,
-    getbyIdUser
+    getbyIdUser,
+    getAllRole,
+    createUser
 };
 
 function login({ username, password }: { username: string; password: string }) {
@@ -25,4 +27,17 @@ function logout(payload: any) {
 
 function getbyIdUser (){
     return ApiInstance().get(`user/getbyId`);
+}
+
+function getAllRole (){
+    return ApiInstance().get(`role/getAll`);
+}
+
+function createUser (body:any){
+    return ApiInstance().post(`user/create-user`,body,
+     {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        }}
+    );
 }
