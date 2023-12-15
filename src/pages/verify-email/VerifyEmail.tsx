@@ -1,30 +1,29 @@
+import { userAPI } from "api/user.api";
 import PrimaryButton from "components/ui/button/PrimaryButtton";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { userAction } from "redux/user/user.slice";
 
 function VerifyEmail() {
     const search = useLocation().search;
-    const emailToken = new URLSearchParams(search).get("emailToken");
+    const token = new URLSearchParams(search).get("token");
+    const email = new URLSearchParams(search).get("email");
     const dispatch = useDispatch<any>();
     const navigate = useNavigate();
-
-    useEffect(() => {
-        try {
-            // const result = dispatch(userAction.verifyEmail(emailToken || ""));
-            // result.then((data: any) => {
-            //     if (data?.error) {
-            //         navigate("/404");
-            //         return;
-            //     }
-            //     toast.success("Xác thực thành công!");
-            // });
-        } catch (error) {
-            navigate("/404");
+    
+    useEffect( () => {
+        const query = {
+            token: token,
+            email: email
         }
-    }, []);
+        userAPI.VerifyEmail(query).then((res)=>{
+            if(res.status === 1){
+                toast.success('Xác thực tài khoản thành công!')
+            }
+            
+        })
+    }, [token, email]);
     return (
         <div className="flex flex-col items-center justify-end h-80 py-5">
             <h2 className="font-semibold text-gray-700 text-center mb-5">
@@ -34,9 +33,9 @@ function VerifyEmail() {
                 <PrimaryButton
                     className="!px-10"
                     onClick={() => {
-                        navigate("/dang-nhap");
+                        navigate("/them-nguoi-dung");
                     }}
-                    content="Đăng nhập"
+                    content="Quay lại"
                 ></PrimaryButton>
             </div>
         </div>

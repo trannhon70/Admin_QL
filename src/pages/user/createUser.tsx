@@ -7,13 +7,9 @@ import BreadCrumb from 'components/ui/breadcrumb';
 import { useEffect, useState } from 'react';
 import { FiUploadCloud } from 'react-icons/fi';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { getListBrand } from 'redux/brand/brand.selector';
-import { brandAction } from 'redux/brand/brand.slice';
-import { getListProduct } from 'redux/product/product.selector';
-import { productAction } from 'redux/product/product.slice';
 import { userAction } from 'redux/user/user.slice';
+import { validateEmail } from '../../util';
 const { TextArea } = Input;
 const { Option } = Select;
 
@@ -28,6 +24,8 @@ const dataBreadCrumb: any = [
     },
 
 ]
+
+const allowedTypes = ['image/png', 'image/jpeg', 'image/svg+xml']
 
 const CreateUser = () => {
     const [form] = useForm();
@@ -48,7 +46,13 @@ const CreateUser = () => {
     }, [])
 
     const onFinish = async (values: any) => {
-        console.log(values, 'value');
+        const checkMail : any = validateEmail(values.email)
+        if(values.password.length < 6){
+            return toast.warning('Mật khẩu phải có ít nhất 6 ký tự!')
+        }
+        if(checkMail[5] !== "gmail.com"){
+            return toast.warning('Email của bạn không đúng định dạng!')
+        }
         
         const formData = new FormData()
         formData.append("username", values.username);
@@ -62,18 +66,17 @@ const CreateUser = () => {
         fileList?.forEach((fileModal: any) => {
           formData.append("file", fileModal.originFileObj);
         });
-        // if(idProduct  !== 'sp-them-san-pham'){
           const result: any = await userAPI.createUser(formData)
-          console.log(result,'result');
-          
-        //   result.status === 1 ? toast.success(`${result.message}`) : toast.error(`${result.message}`)
-
-        // }else {
-        //   const result: any = await productAPI.createdProduct(formData)
-        //   result.status === 1 ? toast.success(`${result.message}`) : toast.error(`${result.message}`)
-        // }
-
+          result.status === 1 ? toast.success(`${result.message}`) : toast.error(`${result.message}`)
     };
+
+    const beforeUpload = (file : any) => {
+        const isAllowed = allowedTypes.includes(file.type);
+        if (!isAllowed) {
+          toast.error('Chỉ được phép tải lên các file PNG, JPG hoặc SVG!');
+        }
+        return isAllowed ? true : Upload.LIST_IGNORE;
+      };
 
 
     type FieldType = {
@@ -171,6 +174,7 @@ const CreateUser = () => {
                         listType="picture-card"
                         fileList={fileList}
                         onChange={onChange}
+                        beforeUpload={beforeUpload}
                         maxCount={1}
                     >
                         <FiUploadCloud className="mr-1" size={40} />

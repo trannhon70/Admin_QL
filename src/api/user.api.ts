@@ -6,7 +6,8 @@ export const userAPI = {
     logout,
     getbyIdUser,
     getAllRole,
-    createUser
+    createUser,
+    VerifyEmail
 };
 
 function login({ username, password }: { username: string; password: string }) {
@@ -31,6 +32,10 @@ function getbyIdUser (){
 
 function getAllRole (){
     return ApiInstance().get(`role/getAll`);
+}
+
+function VerifyEmail (query: any){
+    return ApiInstance().get(`user/verify?token=${query.token}&email=${query.email}`);
 }
 
 function createUser (body:any){
