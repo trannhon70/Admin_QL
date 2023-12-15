@@ -1,21 +1,19 @@
-import React,{useEffect, useState} from 'react';
-import { Space, Table, Input, Button, Avatar, Tooltip, Select } from 'antd';
+import { Avatar, Button, Input, Select, Space, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import BreadCrumb from 'components/ui/breadcrumb';
-import { MdDelete } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
-import { brandAction, setpagingBrand } from 'redux/brand/brand.slice';
-import { getListBrand } from 'redux/brand/brand.selector';
-import { IListBrand } from 'interface/user';
-import moment from 'moment';
 import PaginationCustom from 'components/ui/pagination/PaginationCustom';
-import { useNavigate } from "react-router-dom";
-import { productAction } from 'redux/product/product.slice';
-import { getListProduct } from 'redux/product/product.selector';
 import { IListProduct } from 'interface';
-import {FormatNumberVND}  from '../../util';
-import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { getListBrand } from 'redux/brand/brand.selector';
+import { brandAction } from 'redux/brand/brand.slice';
+import { getListProduct } from 'redux/product/product.selector';
+import { productAction } from 'redux/product/product.slice';
+import { FormatNumberVND } from '../../util';
 
 
 const dataBreadCrumb : any = [

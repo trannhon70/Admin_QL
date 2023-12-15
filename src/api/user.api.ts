@@ -1,4 +1,5 @@
 import { ApiInstance } from "helper/api.helper";
+import { IPaginnation } from "interface";
 
 export const userAPI = {
     login,
@@ -7,7 +8,8 @@ export const userAPI = {
     getbyIdUser,
     getAllRole,
     createUser,
-    VerifyEmail
+    VerifyEmail,
+    getpagingUser
 };
 
 function login({ username, password }: { username: string; password: string }) {
@@ -32,6 +34,10 @@ function getbyIdUser (){
 
 function getAllRole (){
     return ApiInstance().get(`role/getAll`);
+}
+
+function getpagingUser (query: IPaginnation){
+    return ApiInstance().get(`user/getpaging?pageIndex=${query.pageIndex}&pageSize=${query.pageSize}&search=${query.search}`);
 }
 
 function VerifyEmail (query: any){

@@ -2,7 +2,7 @@ import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import { userAPI } from "api/user.api";
 import { LOCAL_STORAGE } from "helper/storage.helper";
-import { IUser } from "interface/user";
+import { IUser, IUserList } from "interface/user";
 
 const signOut = createAction("auth/signOut");
 const logout = createAsyncThunk("auth/logout", (payload: { userId: string }) => {
@@ -34,6 +34,10 @@ const getbyIdUser = createAsyncThunk(
     }
 );
 
+const getpagingUser = createAsyncThunk('auth/getpagingUser', (query : any)=>{
+    return userAPI.getpagingUser(query )
+})
+
 
 const getAllRole = createAsyncThunk("role/getAllRole",
     () => {
@@ -49,7 +53,8 @@ export const userAction = {
     signOut,
     logout,
     getbyIdUser,
-    getAllRole
+    getAllRole,
+    getpagingUser
 };
 
 
@@ -59,12 +64,11 @@ interface UserState {
     isLoading: boolean;
     currentUser: IUser | null;
     updateUser: IUser | null;
-    listUsers: IUser[];
-    listAdmins: IUser[];
     errorMessage: string;
     listUsersSelect: IUser[];
-    user: IUser; // <-- Update the type to IUser
+    user: any; // <-- Update the type to IUser
     role: any;
+    listUser: IUserList[]
 }
 
 const initialState: UserState = {
@@ -72,12 +76,11 @@ const initialState: UserState = {
     isLoading: false,
     currentUser: currentUser || null,
     updateUser: null,
-    listUsers: [],
-    listAdmins: [],
     errorMessage: "",
     listUsersSelect: [],
     user: { id: "", username: "", role: "", name: "", avatar: "" }, // Provide initial values based on IUser
     role: [],
+    listUser:[]
 };
 export const userSlice = createSlice({
     name: "user",
@@ -120,6 +123,7 @@ export const userSlice = createSlice({
         });
         //getbyIdUser
         builder.addCase(getbyIdUser.fulfilled, (state, action: any) => {
+            
             state.user = action.payload.result;
         });
 
@@ -131,6 +135,10 @@ export const userSlice = createSlice({
         //get all role
         builder.addCase(getAllRole.fulfilled, (state, action: any) => {
             state.role = action.payload.data
+        })
+
+        builder.addCase(getpagingUser.fulfilled, (state, action: any)=>{
+            state.listUser = action.payload.data
         })
 
     },

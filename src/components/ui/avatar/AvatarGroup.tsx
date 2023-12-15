@@ -77,7 +77,7 @@ useEffect(()=>{
                         <div>
                            <p className="text-start text-sm font-medium">{userInfo?.name}</p>
                            <p className="text-start text-sm text-gray-500 font-medium uppercase">
-                              {userInfo?.role || "USER"}
+                              {userInfo?.role?.name || "USER"}
                            </p>
                         </div>
                         <AiFillCaretDown />

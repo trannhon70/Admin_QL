@@ -61,6 +61,7 @@ const CreateUser = () => {
         formData.append("date", values.date);
         formData.append("email", values.email);
         formData.append("phone", values.phone);
+        formData.append("role", values.role);
         formData.append("address", values.address);
         
         fileList?.forEach((fileModal: any) => {
@@ -87,6 +88,7 @@ const CreateUser = () => {
         email?: string;
         phone?: string;
         address?: string;   
+        role?: any
     };
     return <>
         <BreadCrumb data={dataBreadCrumb} />
