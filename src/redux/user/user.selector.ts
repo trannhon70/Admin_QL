@@ -10,7 +10,11 @@ interface IUsers{
             updatedAt: string,
             createdAt: string
         }
-        listUser: []
+        listUser: [];
+        count: 0,
+        totalPages: 0,
+        pageSize: 10,
+        pageIndex: 1,
     }
 }
 export const getUser = (state: IUsers) => {

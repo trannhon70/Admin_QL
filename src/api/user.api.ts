@@ -9,7 +9,8 @@ export const userAPI = {
     getAllRole,
     createUser,
     VerifyEmail,
-    getpagingUser
+    getpagingUser,
+    deleteUser
 };
 
 function login({ username, password }: { username: string; password: string }) {
@@ -36,7 +37,12 @@ function getAllRole (){
     return ApiInstance().get(`role/getAll`);
 }
 
+function deleteUser (id: string){
+    return ApiInstance().delete(`user/delete/${id}`);
+}
+
 function getpagingUser (query: IPaginnation){
+
     return ApiInstance().get(`user/getpaging?pageIndex=${query.pageIndex}&pageSize=${query.pageSize}&search=${query.search}`);
 }
 

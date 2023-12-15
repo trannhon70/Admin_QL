@@ -35,7 +35,12 @@ const getbyIdUser = createAsyncThunk(
 );
 
 const getpagingUser = createAsyncThunk('auth/getpagingUser', (query : any)=>{
+    
     return userAPI.getpagingUser(query )
+})
+
+const deleteUser = createAsyncThunk('auth/deleteUser', (id : string)=>{
+    return userAPI.deleteUser(id )
 })
 
 
@@ -54,7 +59,8 @@ export const userAction = {
     logout,
     getbyIdUser,
     getAllRole,
-    getpagingUser
+    getpagingUser,
+    deleteUser
 };
 
 
@@ -68,7 +74,11 @@ interface UserState {
     listUsersSelect: IUser[];
     user: any; // <-- Update the type to IUser
     role: any;
-    listUser: IUserList[]
+    listUser: IUserList[];
+    count: number;
+    totalPages: number;
+    pageSize: number;
+    pageIndex: number;
 }
 
 const initialState: UserState = {
@@ -80,7 +90,11 @@ const initialState: UserState = {
     listUsersSelect: [],
     user: { id: "", username: "", role: "", name: "", avatar: "" }, // Provide initial values based on IUser
     role: [],
-    listUser:[]
+    listUser:[],
+    count: 0,
+    totalPages: 0,
+    pageSize: 10,
+    pageIndex: 1,
 };
 export const userSlice = createSlice({
     name: "user",
@@ -139,8 +153,16 @@ export const userSlice = createSlice({
 
         builder.addCase(getpagingUser.fulfilled, (state, action: any)=>{
             state.listUser = action.payload.data
+            state.count = action.payload.count;
+            state.totalPages = action.payload.totalPages;
+            state.pageSize = action.payload.pageSize;
+            state.pageIndex = action.payload.pageIndex;
         })
 
+        builder.addCase(deleteUser.fulfilled, (state, action: any) => {
+            toast.success(action.payload.message );
+            state.listUser = state.listUser.filter(item => item.id !== action.payload.result.id);
+        })
     },
 });
 

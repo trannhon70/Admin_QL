@@ -21,7 +21,7 @@ const dataBreadCrumb: any = [
 
 const ManagerUser = () => {
     const dispatch = useDispatch()
-    const {listUser} = useSelector(getPagingUser)
+    const {listUser,count} = useSelector(getPagingUser)
     const [_search, _setSearch] = useState<string>('')
     const [_pageSize, _setPageSize] = useState<number>(10)
     const [_pageIndex, _setPageIndex] = useState<number>(1)
@@ -93,12 +93,11 @@ const ManagerUser = () => {
     },[_pageSize,_pageIndex ])
     
     const onClickSearch = () => {
-        // dispacth(brandAction.getpagingBrand(payload));
+        dispatch(userAction.getpagingUser(query) as any)
     }
 
-    const deleteBrand = (value: string) => {
-
-        // navigate(`/sua-thuong-hieu/${value}`);
+    const deleteBrand = (value: any) => {
+      dispatch(userAction.deleteUser(value.id) as any)
     }
 
     const handleChangePageSize = (value: number) => {
@@ -119,7 +118,7 @@ const ManagerUser = () => {
         <PaginationCustom
             pageSize={_pageSize}
             pageIndex={_pageIndex}
-            //    list={count} 
+               list={count} 
             setPageSize={(value: number) =>
                 handleChangePageSize(value)
             }

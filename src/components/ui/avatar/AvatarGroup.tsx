@@ -40,11 +40,11 @@ useEffect(()=>{
 },[])
 
    const items: MenuProps["items"] = [
-      {
-         label: "Tài khoản",
-         key: "1",
-         icon: <AiOutlineUser size={18} />,
-      },
+      // {
+      //    label: "Tài khoản",
+      //    key: "1",
+      //    icon: <AiOutlineUser size={18} />,
+      // },
       // {
       //    label: "Nạp tiền",
       //    key: "2",
@@ -73,7 +73,7 @@ useEffect(()=>{
                <Dropdown menu={{ items, onClick }} placement="bottomRight">
                   <button onClick={hangdleOnClick}>
                      <Space>
-                        <Avatar src={userInfo?.avatar || defaultAvatar} size={38}></Avatar>
+                        <Avatar src={`${process.env.REACT_APP_BASE_API_URL}/${userInfo?.avatar}` || defaultAvatar}  size={38}></Avatar>
                         <div>
                            <p className="text-start text-sm font-medium">{userInfo?.name}</p>
                            <p className="text-start text-sm text-gray-500 font-medium uppercase">
